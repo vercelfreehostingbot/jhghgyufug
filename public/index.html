@@ -256,11 +256,14 @@
           body: JSON.stringify({ message, name: document.getElementById('name').value.trim(), email: document.getElementById('email').value.trim() })
         });
         const data = await response.json();
-        if (!response.ok) throw new Error(data.error || 'Request failed');
+        if (!response.ok) {
+          const missing = data.missing ? ` (${data.missing.join(', ')})` : '';
+          throw new Error(`${data.error || 'Request failed'}${missing}`);
+        }
         addMessage(responseText(data), 'bot');
         state.textContent = 'Ready to help';
       } catch (error) {
-        addMessage('সার্ভারের সঙ্গে যোগাযোগ করা যাচ্ছে না। পরে আবার চেষ্টা করুন।', 'bot');
+        addMessage(error.message || 'সার্ভারের সঙ্গে যোগাযোগ করা যাচ্ছে না। পরে আবার চেষ্টা করুন।', 'bot');
         state.textContent = 'Connection issue';
       } finally {
         send.disabled = false;

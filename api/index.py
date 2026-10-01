@@ -48,6 +48,10 @@ def _json_response(handler, status, payload):
     handler.wfile.write(body)
 
 
+def _missing_configuration():
+    return [name for name in ("OPENAI_API_KEY", "DATABASE_URL") if not os.getenv(name)]
+
+
 class handler(BaseHTTPRequestHandler):
     def do_GET(self):
         _json_response(self, 200, {"status": "ok"})
@@ -56,6 +60,14 @@ class handler(BaseHTTPRequestHandler):
         content_length = int(self.headers.get("Content-Length", "0"))
         if content_length > 32_000:
             _json_response(self, 413, {"error": "Mensagem muito grande."})
+            return
+
+        missing = _missing_configuration()
+        if missing:
+            _json_response(self, 503, {
+                "error": "Configure as variáveis de ambiente da aplicação na Vercel.",
+                "missing": missing,
+            })
             return
 
         try:
@@ -95,7 +107,8 @@ class handler(BaseHTTPRequestHandler):
 
             resultado.pop("tool_calls", None)
             _json_response(self, 200, resultado)
-        except Exception:
+        except Exception as error:
+            print(f"API error: {type(error).__name__}", file=sys.stderr)
             _json_response(self, 500, {"error": "Erro interno ao processar a mensagem."})
 
     def log_message(self, format, *args):
