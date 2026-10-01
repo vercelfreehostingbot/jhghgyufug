@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Max Desk | Delivery Support</title>
+  <style>
+    :root {
+      --ink: #17262b;
+      --muted: #718087;
+      --paper: #f5f7f4;
+      --panel: #ffffff;
+      --line: #dfe7e3;
+      --teal: #087f76;
+      --teal-dark: #075b57;
+      --coral: #ee765d;
+      --soft-teal: #e2f2ed;
+      --shadow: 0 24px 70px rgba(24, 55, 56, .12);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Georgia, "Times New Roman", serif;
+    }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    .shell {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      min-height: 100vh;
+      max-width: 1480px;
+      margin: 0 auto;
+      padding: 22px;
+      gap: 22px;
+    }
+    .rail, .workspace {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+    .rail {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 27px 22px;
+      border-radius: 24px;
+      background: #173b3d;
+      color: #eef8f3;
+      overflow: hidden;
+      position: relative;
+    }
+    .rail::after {
+      content: "";
+      width: 170px;
+      height: 170px;
+      border: 1px solid rgba(255,255,255,.17);
+      border-radius: 50%;
+      position: absolute;
+      right: -92px;
+      top: 82px;
+    }
+    .brand { position: relative; z-index: 1; }
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 45px;
+      height: 45px;
+      border-radius: 14px;
+      background: var(--coral);
+      color: white;
+      font: 700 22px Arial, sans-serif;
+      margin-bottom: 22px;
+    }
+    .brand h1 { margin: 0; font-size: 25px; letter-spacing: .2px; }
+    .brand p { color: #adc7c2; margin: 7px 0 0; font: 13px Arial, sans-serif; }
+    .rail-nav { margin-top: 58px; display: grid; gap: 8px; position: relative; z-index: 1; }
+    .rail-nav a {
+      padding: 12px 13px;
+      border-radius: 10px;
+      color: #b7cfca;
+      text-decoration: none;
+      font: 14px Arial, sans-serif;
+    }
+    .rail-nav a.active { background: rgba(255,255,255,.11); color: white; }
+    .rail-footer { position: relative; z-index: 1; }
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: #c4dbd5;
+      font: 12px Arial, sans-serif;
+    }
+    .status-dot { width: 8px; height: 8px; background: #7be1a6; border-radius: 50%; box-shadow: 0 0 0 5px rgba(123,225,166,.12); }
+    .workspace { border-radius: 24px; min-width: 0; display: flex; flex-direction: column; overflow: hidden; }
+    .topbar { padding: 26px 32px 21px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; gap: 20px; align-items: center; }
+    .eyebrow { color: var(--teal); text-transform: uppercase; letter-spacing: 1.7px; font: 700 11px Arial, sans-serif; }
+    .topbar h2 { margin: 7px 0 0; font-size: clamp(25px, 3vw, 38px); line-height: 1.05; font-weight: 600; }
+    .topbar p { margin: 9px 0 0; color: var(--muted); font: 13px Arial, sans-serif; }
+    .session-chip { padding: 11px 14px; border: 1px solid var(--line); border-radius: 10px; color: var(--muted); font: 12px Arial, sans-serif; white-space: nowrap; }
+    .session-chip strong { color: var(--ink); display: block; margin-top: 3px; }
+    .content { display: grid; grid-template-columns: minmax(0, 1fr) 245px; gap: 22px; padding: 22px; flex: 1; min-height: 0; }
+    .chat { display: flex; flex-direction: column; min-height: 580px; border: 1px solid var(--line); border-radius: 18px; background: #fbfcfa; overflow: hidden; }
+    .chat-head { display: flex; justify-content: space-between; padding: 16px 19px; border-bottom: 1px solid var(--line); font: 12px Arial, sans-serif; }
+    .chat-title { font-weight: 700; }
+    .chat-state { color: var(--teal); }
+    .messages { flex: 1; overflow: auto; padding: 23px; display: grid; align-content: start; gap: 15px; }
+    .message { max-width: min(680px, 82%); animation: rise .25s ease both; }
+    .message p { margin: 0; padding: 13px 16px; line-height: 1.5; font-size: 15px; white-space: pre-wrap; }
+    .message.bot { justify-self: start; }
+    .message.bot p { background: var(--soft-teal); border-radius: 4px 16px 16px 16px; }
+    .message.user { justify-self: end; }
+    .message.user p { background: var(--teal); color: white; border-radius: 16px 4px 16px 16px; }
+    .message small { display: block; color: var(--muted); font: 10px Arial, sans-serif; margin: 6px 3px 0; }
+    .message.user small { text-align: right; }
+    .composer { display: grid; grid-template-columns: 1fr auto; gap: 10px; padding: 15px; border-top: 1px solid var(--line); background: white; }
+    .composer input { min-width: 0; padding: 14px 15px; border: 1px solid var(--line); border-radius: 11px; outline: none; color: var(--ink); }
+    .composer input:focus, .profile input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(8,127,118,.1); }
+    .send { border: 0; border-radius: 11px; padding: 0 21px; background: var(--coral); color: white; font: 700 13px Arial, sans-serif; }
+    .send:disabled { opacity: .55; cursor: wait; }
+    .side-info { display: grid; align-content: start; gap: 13px; }
+    .info-card { padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: white; }
+    .info-card h3 { margin: 0 0 14px; font-size: 16px; font-weight: 600; }
+    .info-card p { color: var(--muted); margin: 0; font: 12px/1.55 Arial, sans-serif; }
+    .profile { display: grid; gap: 9px; }
+    .profile label { color: var(--muted); font: 11px Arial, sans-serif; }
+    .profile input { width: 100%; padding: 10px; border: 1px solid var(--line); border-radius: 8px; outline: none; font: 12px Arial, sans-serif; }
+    .metric { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--line); padding: 10px 0; font: 12px Arial, sans-serif; color: var(--muted); }
+    .metric:last-child { border-bottom: 0; padding-bottom: 0; }
+    .metric strong { color: var(--ink); font-size: 18px; }
+    @keyframes rise { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 900px) {
+      .shell { grid-template-columns: 1fr; padding: 12px; }
+      .rail { min-height: auto; padding: 18px; border-radius: 18px; }
+      .rail-nav { display: none; }
+      .rail-footer { margin-top: 22px; }
+      .content { grid-template-columns: 1fr; padding: 13px; }
+      .side-info { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .chat { min-height: 62vh; }
+    }
+    @media (max-width: 560px) {
+      .topbar { padding: 21px 18px; align-items: flex-start; }
+      .session-chip { display: none; }
+      .content { padding: 10px; }
+      .side-info { grid-template-columns: 1fr; }
+      .composer { grid-template-columns: 1fr; }
+      .send { min-height: 44px; }
+      .messages { padding: 16px; }
+      .message { max-width: 92%; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <aside class="rail">
+      <div>
+        <div class="brand">
+          <div class="brand-mark">M</div>
+          <h1>Max Desk</h1>
+          <p>Delivery support console</p>
+        </div>
+        <nav class="rail-nav" aria-label="Main navigation">
+          <a class="active" href="#chat">Conversation</a>
+          <a href="#profile">Customer profile</a>
+          <a href="#status">System status</a>
+        </nav>
+      </div>
+      <div class="rail-footer"><div class="status"><span class="status-dot"></span> API connected</div></div>
+    </aside>
+
+    <section class="workspace">
+      <header class="topbar">
+        <div>
+          <div class="eyebrow">Live support workspace</div>
+          <h2>Good to see you.</h2>
+          <p>Ask Max about delivery policies, delays, and next steps.</p>
+        </div>
+        <div class="session-chip">SESSION<strong id="session-id">New conversation</strong></div>
+      </header>
+
+      <div class="content">
+        <section class="chat" id="chat">
+          <div class="chat-head"><span class="chat-title">Max assistant</span><span class="chat-state" id="chat-state">Ready to help</span></div>
+          <div class="messages" id="messages" aria-live="polite">
+            <div class="message bot"><p>Olá! Sou o Max, assistente da XYZ Entregas. Como posso ajudar?</p><small>Max · agora</small></div>
+          </div>
+          <form class="composer" id="composer">
+            <input id="message" autocomplete="off" placeholder="Write a message about your delivery..." aria-label="Message">
+            <button class="send" id="send" type="submit">Send ↗</button>
+          </form>
+        </section>
+
+        <aside class="side-info">
+          <section class="info-card profile" id="profile">
+            <h3>Customer profile</h3>
+            <label for="name">Name</label><input id="name" placeholder="Your name">
+            <label for="email">Email</label><input id="email" type="email" placeholder="you@example.com">
+          </section>
+          <section class="info-card" id="status">
+            <h3>Session</h3>
+            <div class="metric"><span>Messages</span><strong id="message-count">1</strong></div>
+            <div class="metric"><span>Mode</span><strong>RAG</strong></div>
+            <div class="metric"><span>Database</span><strong style="color:var(--teal);font-size:13px">Online</strong></div>
+          </section>
+          <section class="info-card"><h3>What Max knows</h3><p>Delivery policies, eligible solutions, and when to request human support.</p></section>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const form = document.getElementById('composer');
+    const input = document.getElementById('message');
+    const send = document.getElementById('send');
+    const messages = document.getElementById('messages');
+    const state = document.getElementById('chat-state');
+    const count = document.getElementById('message-count');
+    let totalMessages = 1;
+
+    function addMessage(text, type) {
+      const item = document.createElement('div');
+      item.className = `message ${type}`;
+      const bubble = document.createElement('p');
+      bubble.textContent = text;
+      const meta = document.createElement('small');
+      meta.textContent = type === 'user' ? 'You · agora' : 'Max · agora';
+      item.append(bubble, meta);
+      messages.appendChild(item);
+      messages.scrollTop = messages.scrollHeight;
+      totalMessages += 1;
+      count.textContent = totalMessages;
+    }
+
+    function responseText(data) {
+      if (data.reply) return data.reply;
+      if (data.tipo === 'saudacao') return 'Olá! Como posso te ajudar hoje?';
+      if (data.tipo === 'needs_more_information') return 'Para te ajudar melhor, preciso de mais alguns detalhes sobre seu pedido.';
+      if (data.tipo === 'sem_contexto') return data.transferiu ? 'Vou transferir você para um atendente humano.' : 'Pode explicar sua solicitação com mais detalhes sobre o pedido?';
+      if (data.tipo === 'saida') return 'Até mais!';
+      return 'Não consegui processar essa mensagem.';
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const message = input.value.trim();
+      if (!message || send.disabled) return;
+      addMessage(message, 'user');
+      input.value = '';
+      send.disabled = true;
+      state.textContent = 'Thinking...';
+      try {
+        const response = await fetch('/api/index.py', {
+          method: 'POST', headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ message, name: document.getElementById('name').value.trim(), email: document.getElementById('email').value.trim() })
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || 'Request failed');
+        addMessage(responseText(data), 'bot');
+        state.textContent = 'Ready to help';
+      } catch (error) {
+        addMessage('সার্ভারের সঙ্গে যোগাযোগ করা যাচ্ছে না। পরে আবার চেষ্টা করুন।', 'bot');
+        state.textContent = 'Connection issue';
+      } finally {
+        send.disabled = false;
+        input.focus();
+      }
+    });
+  </script>
+</body>
+</html>
