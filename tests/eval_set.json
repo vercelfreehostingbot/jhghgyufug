@@ -1,0 +1,149 @@
+[
+  {
+    "pergunta": "oi",
+    "checks": { "is_greeting": true },
+    "limitacao_conhecida": false
+  },
+  {
+    "pergunta": "oii",
+    "checks": { "is_greeting": true },
+    "limitacao_conhecida": false
+  },
+  {
+    "pergunta": "bom diaa",
+    "checks": { "is_greeting": true },
+    "limitacao_conhecida": false
+  },
+  {
+    "pergunta": "salve",
+    "checks": { "is_greeting": true },
+    "limitacao_conhecida": false
+  },
+  {
+    "pergunta": "salve salve",
+    "checks": { "is_greeting": true },
+    "limitacao_conhecida": false
+  },
+  {
+    "pergunta": "hello",
+    "checks": { "is_greeting": true },
+    "limitacao_conhecida": true
+  },
+  {
+    "pergunta": "meu pedido ta atrasado",
+    "checks": { "is_greeting": false },
+    "limitacao_conhecida": false
+  },
+  {
+    "pergunta": "qual o prazo",
+    "checks": { "is_greeting": false },
+    "limitacao_conhecida": false
+  },
+  {
+    "pergunta": "salve meu número de rastreamento",
+    "checks": { "is_greeting": false },
+    "limitacao_conhecida": false
+  },
+  {
+    "pergunta": "qual o prazo de entrega para o sul?",
+    "checks": { "should_find_context": true },
+    "limitacao_conhecida": false
+  },
+  {
+    "pergunta": "meu pedido foi extraviado",
+    "checks": { "should_find_context": true },
+    "limitacao_conhecida": false
+  },
+  {
+    "pergunta": "copa do mundo fifa",
+    "checks": { "should_find_context": false },
+    "limitacao_conhecida": false
+  },
+  {
+    "pergunta": "como fazer miojo",
+    "checks": { "should_find_context": false },
+    "limitacao_conhecida": false
+  },
+  {
+    "pergunta": "quero sair",
+    "checks": { "intercepta_em": "saida" },
+    "limitacao_conhecida": false
+  },
+  {
+    "pergunta": "qual o prazo de entrega para o sul?",
+    "checks": { "grounding_should_fail": false },
+    "limitacao_conhecida": false
+  },
+  {
+    "pergunta": "meu pedido foi extraviado",
+    "checks": { "grounding_should_fail": false },
+    "limitacao_conhecida": false
+  },
+  {
+    "pergunta": "meu pedido está atrasado só um pouco, ainda não chegou mas também não sumiu, o que eu faço?",
+    "checks": { "grounding_should_fail": false },
+    "limitacao_conhecida": false
+  },
+  {
+    "pergunta": "meu pedido está atrasado só um pouco, ainda não chegou mas também não sumiu, o que eu faço?",
+    "checks": { "intercepta_em": "needs_more_information" },
+    "limitacao_conhecida": false
+  },
+  {
+    "pergunta": "meu reembolso está demorando um pouco mais que o esperado, quantos dias a mais eu devo aguardar antes de me preocupar?",
+    "checks": { "grounding_should_fail": false },
+    "limitacao_conhecida": false
+  },
+  {
+    "pergunta": "meu pedido foi extraviado, o que eu faço?",
+    "checks": { "grounding_should_fail": false },
+    "limitacao_conhecida": false
+  },
+  {
+    "pergunta": "meu pedido está atrasado há 1 semana, o que eu faço?",
+    "checks": { "needs_more_information": true },
+    "limitacao_conhecida": false
+  },
+  {
+    "pergunta": "já faz muito tempo que meu pedido não chega, posso cancelar?",
+    "checks": { "needs_more_information": true },
+    "limitacao_conhecida": false
+  },
+  {
+    "pergunta": "meu produto não chegou ainda, já passou do prazo?",
+    "checks": { "needs_more_information": true },
+    "limitacao_conhecida": false
+  },
+  {
+    "pergunta": "qual o prazo de entrega para o sul?",
+    "checks": { "needs_more_information": false },
+    "limitacao_conhecida": false
+  },
+  {
+    "pergunta": "meu pedido foi extraviado, o que eu faço?",
+    "checks": { "needs_more_information": true },
+    "limitacao_conhecida": false
+  },
+  {
+    "pergunta": "meu pedido chegou amassado, posso trocar por outro produto de valor maior pagando a diferença?",
+    "checks": { "needs_more_information": false },
+    "limitacao_conhecida": false
+  },
+  {
+    "pergunta": "meu pedido foi extraviado, o que eu faço?",
+    "texto_proibido": "48",
+    "checks": { "contem_texto_proibido": false },
+    "limitacao_conhecida": false
+  },
+  {
+    "pergunta": "meu pedido foi extraviado, o que eu faço?",
+    "checks": { "intercepta_em": "needs_more_information" },
+    "limitacao_conhecida": false
+  },
+  {
+    "pergunta": "qual o prazo do meu pedido para os Estados Unidos?",
+    "texto_esperado": "8",
+    "checks": { "resposta_contem": true },
+    "limitacao_conhecida": false
+  }
+]

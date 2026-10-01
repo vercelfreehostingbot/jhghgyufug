@@ -1,0 +1,43 @@
+Empresa: XYZ Entregas
+Fundada em: 2015, São Paulo - SP
+CNPJ: 12.345.678/0001-99
+
+Prazos de entrega:
+- Região Sudeste: 2 a 3 dias úteis
+- Região Sul: 3 a 4 dias úteis
+- Região Nordeste: 5 a 7 dias úteis
+- Região Norte e Centro-Oeste: 7 a 10 dias úteis
+
+Política de atraso (aplicável quando o pedido ainda está dentro do prazo de entrega da região, sem qualquer indício de extravio):
+- Se o pedido ainda não chegou, mas o prazo de entrega da região ainda não foi ultrapassado, é esperado que ele esteja em transporte.
+- Nenhuma ação é necessária até o fim do prazo estimado.
+- Após o prazo da região ser ultrapassado sem confirmação de extravio, aplica-se a política de pedido constando como entregue, mas não recebido.
+
+Política de reembolso:
+- Prazo para solicitação: até 7 dias após a entrega.
+- Reembolso processado em até 5 dias úteis após aprovação.
+- Reembolso realizado via PIX ou estorno no cartão de crédito.
+
+Política de reenvio (aplicável quando o cliente relata ou confirma que o pedido foi extraviado, ou quando recebeu um item incorreto):
+- Em caso de extravio relatado pelo cliente ou entrega incorreta, o cliente tem direito a reenvio sem custo adicional.
+- Se o extravio for confirmado após investigação, o cliente poderá optar por reenvio ou reembolso integral.
+- O prazo do reenvio é igual ao prazo original de entrega da região.
+
+Política para pedido constando como entregue no sistema, mas que o cliente afirma não ter recebido (situação de extravio ainda não confirmado, diferente de quando o cliente já relata diretamente o extravio):
+- O cliente deve acionar o suporte em até 48 horas após a data de entrega para abrir a investigação.
+- Será aberta uma investigação com prazo de até 3 dias úteis para apurar o ocorrido.
+- Caso a investigação confirme o extravio, aplica-se a Política de reenvio.
+
+Política de rastreamento:
+- O código de rastreamento é enviado por e-mail em até 24 horas após a postagem.
+- O status do pedido é atualizado em tempo real no site e no aplicativo.
+
+Horário de atendimento:
+- Segunda a sexta: 8h às 18h.
+- Sábado: 9h às 13h.
+- Domingos e feriados: sem atendimento.
+
+Canais de atendimento:
+- Chat: disponível no site e aplicativo.
+- E-mail: suporte@xyzentregas.com.br
+- Telefone: 0800 123 4567

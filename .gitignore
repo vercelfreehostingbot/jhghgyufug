@@ -1,0 +1,6 @@
+.env
+data/faiss_index/
+data/faiss_metadata.txt
+logs/
+__pycache__/
+data/parent_docstore*
